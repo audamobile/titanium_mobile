@@ -52,6 +52,7 @@
 
 -(void)setHtml_:(NSString*)content withObject:(id)property;
 -(void)setAllowsLinkPreview_:(id)value;
+-(void)enableEventsFromRemotePages:(BOOL)isEnabled;
 
 @end
 

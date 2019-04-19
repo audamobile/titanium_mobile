@@ -62,6 +62,7 @@ public class TiUIWebView extends TiUIView
 	private boolean bindingCodeInjected = false;
 	private boolean isLocalHTML = false;
 	private HashMap<String, String> extraHeaders = new HashMap<String, String>();
+	private boolean eventsFromRemotePagesEnabled = false;
 
 	private static Enum<?> enumPluginStateOff;
 	private static Enum<?> enumPluginStateOn;
@@ -913,7 +914,7 @@ public class TiUIWebView extends TiUIView
 
 	public boolean shouldInjectBindingCode()
 	{
-		return isLocalHTML && !bindingCodeInjected;
+		return (eventsFromRemotePagesEnabled || isLocalHTML) && !bindingCodeInjected;
 	}
 
 	public void setBindingCodeInjected(boolean injected)
@@ -934,5 +935,9 @@ public class TiUIWebView extends TiUIView
 		} else {
 			Log.d(TAG, "Do not disable HW acceleration for WebView.", Log.DEBUG_MODE);
 		}
+	}
+	
+	public void enableEventsFromRemotePages(boolean isEnabled) {
+    	eventsFromRemotePagesEnabled = isEnabled;
 	}
 }
