@@ -4682,7 +4682,7 @@ iOSBuilder.prototype.cleanXcodeDerivedData = function cleanXcodeDerivedData(next
 	}
 
 	var exe = this.xcodeEnv.executables.xcodebuild,
-		args = ['clean'],
+		args = ['clean', '-UseNewBuildSystem=NO'],
 		tries = 0,
 		lastErr = null,
 		done = false;
@@ -6501,7 +6501,8 @@ iOSBuilder.prototype.invokeXcodeBuild = function invokeXcodeBuild(next) {
 		'-derivedDataPath', path.join(this.buildDir, 'DerivedData'),
 		'OBJROOT=' + path.join(this.buildDir, 'build', 'Intermediates'),
 		'SHARED_PRECOMPS_DIR=' + path.join(this.buildDir, 'build', 'Intermediates', 'PrecompiledHeaders'),
-		'SYMROOT=' + path.join(this.buildDir, 'build', 'Products')
+		'SYMROOT=' + path.join(this.buildDir, 'build', 'Products'),
+		'-UseNewBuildSystem=NO'
 	];
 
 	if (this.simHandle) {
