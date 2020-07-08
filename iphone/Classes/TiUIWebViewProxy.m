@@ -98,6 +98,29 @@
   [super _destroy];
 }
 
+#pragma mark - Custom methods
+- (NSString*)evalJS:(id)code
+{
+    ENSURE_SINGLE_ARG(code,NSString);
+    if (![NSThread isMainThread]) {
+        inKJSThread = YES;
+        [self performSelectorOnMainThread:@selector(evalJS:) withObject:code waitUntilDone:YES];
+        inKJSThread = NO;
+    }
+    else {
+        evalResult = [[(TiUIWebView*)[self view] stringByEvaluatingJavaScriptFromString:code] retain];
+    }
+    return (inKJSThread ? evalResult : [evalResult autorelease]);
+}
+
+- (void)enableEventsFromRemotePages:(id)args
+{
+    ENSURE_ARG_COUNT(args, 1);
+    BOOL isEnabled = [TiUtils boolValue:[args objectAtIndex:0] def:NO];
+    [(TiUIWebView*)[self view] enableEventsFromRemotePages:isEnabled];
+}
+
+
 #pragma mark - TiEvaluator Protocol
 
 - (TiHost *)host

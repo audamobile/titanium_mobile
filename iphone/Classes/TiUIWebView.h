@@ -41,6 +41,9 @@
 
 - (void)fireEvent:(id)listener withObject:(id)obj remove:(BOOL)yn thisObject:(id)thisObject_;
 
+-(void)setHtml_:(NSString*)content withObject:(id)property;
+-(void)enableEventsFromRemotePages:(BOOL)isEnabled;
+
 @end
 
 #if IS_SDK_IOS_11
