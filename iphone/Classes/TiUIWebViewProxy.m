@@ -99,19 +99,19 @@
 }
 
 #pragma mark - Custom methods
-- (NSString*)evalJS:(id)code
-{
-    ENSURE_SINGLE_ARG(code,NSString);
-    if (![NSThread isMainThread]) {
-        inKJSThread = YES;
-        [self performSelectorOnMainThread:@selector(evalJS:) withObject:code waitUntilDone:YES];
-        inKJSThread = NO;
-    }
-    else {
-        evalResult = [[(TiUIWebView*)[self view] stringByEvaluatingJavaScriptFromString:code] retain];
-    }
-    return (inKJSThread ? evalResult : [evalResult autorelease]);
-}
+//- (NSString*)evalJS:(id)code
+//{
+//    ENSURE_SINGLE_ARG(code,NSString);
+//    if (![NSThread isMainThread]) {
+//        inKJSThread = YES;
+//        [self performSelectorOnMainThread:@selector(evalJS:) withObject:code waitUntilDone:YES];
+//        inKJSThread = NO;
+//    }
+//    else {
+//        evalResult = [[(TiUIWebView*)[self view] stringByEvaluatingJavaScriptFromString:code] retain];
+//    }
+//    return (inKJSThread ? evalResult : [evalResult autorelease]);
+//}
 
 - (void)enableEventsFromRemotePages:(id)args
 {

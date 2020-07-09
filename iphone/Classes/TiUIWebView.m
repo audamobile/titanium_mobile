@@ -86,12 +86,6 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
     eventsFromRemotePagesEnabled = isEnabled;
 }
 
-+ (BOOL)isLocalURL:(NSURL *)url
-{
-    NSString *scheme = [url scheme];
-    return [scheme isEqualToString:@"file"] || [scheme isEqualToString:@"app"];
-}
-
 - (NSString *)titaniumInjection
 {
     if (_pageToken==nil) {
@@ -975,7 +969,7 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
 {
     if (eventsFromRemotePagesEnabled) {
         NSString * injection = [self titaniumInjectionWithoutScriptElement];
-        NSString * injectionResult = [webView stringByEvaluatingJavaScriptFromString:injection];
+        [webView evaluateJavaScript:injection completionHandler:nil];
     }
     
   [self _cleanupLoadingIndicator];
