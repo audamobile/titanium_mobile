@@ -115,11 +115,11 @@
 
 - (void)enableEventsFromRemotePages:(id)args
 {
-    ENSURE_ARG_COUNT(args, 1);
-    BOOL isEnabled = [TiUtils boolValue:[args objectAtIndex:0] def:NO];
-    [(TiUIWebView*)[self view] enableEventsFromRemotePages:isEnabled];
+  ENSURE_ARG_COUNT(args, 1);
+    NSLog(@"DDDD Called enableEventsFromRemotePages in proxy class");
+  BOOL isEnabled = [TiUtils boolValue:[args objectAtIndex:0] def:NO];
+  [(TiUIWebView *)[self view] enableEventsFromRemotePages:isEnabled];
 }
-
 
 #pragma mark - TiEvaluator Protocol
 

@@ -29,22 +29,21 @@
 extern NSString *const TI_APPLICATION_ID;
 static NSString *const baseInjectScript = @"Ti._hexish=function(a){var r='';var e=a.length;var c=0;var h;while(c<e){h=a.charCodeAt(c++).toString(16);r+='\\\\u';var l=4-h.length;while(l-->0){r+='0'};r+=h}return r};Ti._bridgeEnc=function(o){return'<'+Ti._hexish(o)+'>'};Ti._JSON=function(object,bridge){var type=typeof object;switch(type){case'undefined':case'function':case'unknown':return undefined;case'number':case'boolean':return object;case'string':if(bridge===1)return Ti._bridgeEnc(object);return'\"'+object.replace(/\"/g,'\\\\\"').replace(/\\n/g,'\\\\n').replace(/\\r/g,'\\\\r')+'\"'}if((object===null)||(object.nodeType==1))return'null';if(object.constructor.toString().indexOf('Date')!=-1){return'new Date('+object.getTime()+')'}if(object.constructor.toString().indexOf('Array')!=-1){var res='[';var pre='';var len=object.length;for(var i=0;i<len;i++){var value=object[i];if(value!==undefined)value=Ti._JSON(value,bridge);if(value!==undefined){res+=pre+value;pre=', '}}return res+']'}var objects=[];for(var prop in object){var value=object[prop];if(value!==undefined){value=Ti._JSON(value,bridge)}if(value!==undefined){objects.push(Ti._JSON(prop,bridge)+': '+value)}}return'{'+objects.join(',')+'}'};";
 
-static NSString * const kTitaniumJavascriptModified = @"Ti.App={};Ti.API={};Ti.App._listeners={};Ti.App._listener_id=1;Ti.App.id=Ti.appId;Ti.App._xhr=XMLHttpRequest;"
-"Ti._broker=function(module,method,data){try{var url=Ti.appId+'/_TiA0_'+Ti.pageToken+'/'+module+'/'+method+'?'+Ti.App._JSON(data,1);"
-"var xhr=new Ti.App._xhr();xhr.open('GET',url,false);xhr.send()}catch(X){}};"
-"Ti._hexish=function(a){var r='';var e=a.length;var c=0;var h;while(c<e){h=a.charCodeAt(c++).toString(16);r+='\\\\u';var l=4-h.length;while(l-->0){r+='0'};r+=h}return r};"
-"Ti._bridgeEnc=function(o){return'<'+Ti._hexish(o)+'>'};"
-"Ti.App._JSON=function(object,bridge){var type=typeof object;switch(type){case'undefined':case'function':case'unknown':return undefined;case'number':case'boolean':return object;"
-"case'string':if(bridge===1)return Ti._bridgeEnc(object);return'\"'+object.replace(/\"/g,'\\\\\"').replace(/\\n/g,'\\\\n').replace(/\\r/g,'\\\\r')+'\"'}"
-"if((object===null)||(object.nodeType==1))return'null';if(object.constructor.toString().indexOf('Date')!=-1){return'new Date('+object.getTime()+')'}"
-"if(object.constructor.toString().indexOf('Array')!=-1){var res='[';var pre='';var len=object.length;for(var i=0;i<len;i++){var value=object[i];"
-"if(value!==undefined)value=Ti.App._JSON(value,bridge);if(value!==undefined){res+=pre+value;pre=', '}}return res+']'}var objects=[];"
-"for(var prop in object){var value=object[prop];if(value!==undefined){value=Ti.App._JSON(value,bridge)}"
-"if(value!==undefined){objects.push(Ti.App._JSON(prop,bridge)+': '+value)}}return'{'+objects.join(',')+'}'};"
-"Ti.App._dispatchEvent=function(type,evtid,evt){var listeners=Ti.App._listeners[type];if(listeners){for(var c=0;c<listeners.length;c++){var entry=listeners[c];if(entry.id==evtid){entry.callback.call(entry.callback,evt)}}}};Ti.App.fireEvent=function(name,evt){Ti._broker('App','fireEvent',{name:name,event:evt})};Ti.API.log=function(a,b){Ti._broker('API','log',{level:a,message:b})};Ti.API.debug=function(e){Ti._broker('API','log',{level:'debug',message:e})};Ti.API.error=function(e){Ti._broker('API','log',{level:'error',message:e})};Ti.API.info=function(e){Ti._broker('API','log',{level:'info',message:e})};Ti.API.fatal=function(e){Ti._broker('API','log',{level:'fatal',message:e})};Ti.API.warn=function(e){Ti._broker('API','log',{level:'warn',message:e})};Ti.App.addEventListener=function(name,fn){var listeners=Ti.App._listeners[name];if(typeof(listeners)=='undefined'){listeners=[];Ti.App._listeners[name]=listeners}var newid=Ti.pageToken+Ti.App._listener_id++;listeners.push({callback:fn,id:newid});Ti._broker('App','addEventListener',{name:name,id:newid})};Ti.App.removeEventListener=function(name,fn){var listeners=Ti.App._listeners[name];if(listeners){for(var c=0;c<listeners.length;c++){var entry=listeners[c];if(entry.callback==fn){listeners.splice(c,1);Ti._broker('App','removeEventListener',{name:name,id:entry.id});break}}}};";
+static NSString *const kTitaniumJavascriptModified = @"Ti.App={};Ti.API={};Ti.App._listeners={};Ti.App._listener_id=1;Ti.App.id=Ti.appId;Ti.App._xhr=XMLHttpRequest;"
+                                                      "Ti._broker=function(module,method,data){try{var url=Ti.appId+'/_TiA0_'+Ti.pageToken+'/'+module+'/'+method+'?'+Ti.App._JSON(data,1);"
+                                                      "var xhr=new Ti.App._xhr();xhr.open('GET',url,false);xhr.send()}catch(X){}};"
+                                                      "Ti._hexish=function(a){var r='';var e=a.length;var c=0;var h;while(c<e){h=a.charCodeAt(c++).toString(16);r+='\\\\u';var l=4-h.length;while(l-->0){r+='0'};r+=h}return r};"
+                                                      "Ti._bridgeEnc=function(o){return'<'+Ti._hexish(o)+'>'};"
+                                                      "Ti.App._JSON=function(object,bridge){var type=typeof object;switch(type){case'undefined':case'function':case'unknown':return undefined;case'number':case'boolean':return object;"
+                                                      "case'string':if(bridge===1)return Ti._bridgeEnc(object);return'\"'+object.replace(/\"/g,'\\\\\"').replace(/\\n/g,'\\\\n').replace(/\\r/g,'\\\\r')+'\"'}"
+                                                      "if((object===null)||(object.nodeType==1))return'null';if(object.constructor.toString().indexOf('Date')!=-1){return'new Date('+object.getTime()+')'}"
+                                                      "if(object.constructor.toString().indexOf('Array')!=-1){var res='[';var pre='';var len=object.length;for(var i=0;i<len;i++){var value=object[i];"
+                                                      "if(value!==undefined)value=Ti.App._JSON(value,bridge);if(value!==undefined){res+=pre+value;pre=', '}}return res+']'}var objects=[];"
+                                                      "for(var prop in object){var value=object[prop];if(value!==undefined){value=Ti.App._JSON(value,bridge)}"
+                                                      "if(value!==undefined){objects.push(Ti.App._JSON(prop,bridge)+': '+value)}}return'{'+objects.join(',')+'}'};"
+                                                      "Ti.App._dispatchEvent=function(type,evtid,evt){var listeners=Ti.App._listeners[type];if(listeners){for(var c=0;c<listeners.length;c++){var entry=listeners[c];if(entry.id==evtid){entry.callback.call(entry.callback,evt)}}}};Ti.App.fireEvent=function(name,evt){Ti._broker('App','fireEvent',{name:name,event:evt})};Ti.API.log=function(a,b){Ti._broker('API','log',{level:a,message:b})};Ti.API.debug=function(e){Ti._broker('API','log',{level:'debug',message:e})};Ti.API.error=function(e){Ti._broker('API','log',{level:'error',message:e})};Ti.API.info=function(e){Ti._broker('API','log',{level:'info',message:e})};Ti.API.fatal=function(e){Ti._broker('API','log',{level:'fatal',message:e})};Ti.API.warn=function(e){Ti._broker('API','log',{level:'warn',message:e})};Ti.App.addEventListener=function(name,fn){var listeners=Ti.App._listeners[name];if(typeof(listeners)=='undefined'){listeners=[];Ti.App._listeners[name]=listeners}var newid=Ti.pageToken+Ti.App._listener_id++;listeners.push({callback:fn,id:newid});Ti._broker('App','addEventListener',{name:name,id:newid})};Ti.App.removeEventListener=function(name,fn){var listeners=Ti.App._listeners[name];if(listeners){for(var c=0;c<listeners.length;c++){var entry=listeners[c];if(entry.callback==fn){listeners.splice(c,1);Ti._broker('App','removeEventListener',{name:name,id:entry.id});break}}}};";
 
 BOOL eventsFromRemotePagesEnabled = FALSE;
-
 
 @implementation TiUIWebView
 
@@ -83,39 +82,41 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
 #pragma mark - Custom Methods
 - (void)enableEventsFromRemotePages:(BOOL)isEnabled
 {
-    eventsFromRemotePagesEnabled = isEnabled;
+  eventsFromRemotePagesEnabled = isEnabled;
+    NSLog(@"DDDDD Called enableEventsFromRemotePages method");
 }
 
 - (NSString *)titaniumInjection
 {
-    if (_pageToken==nil) {
-        _pageToken = [[NSString stringWithFormat:@"%lu",(unsigned long)[self hash]] retain];
-        [(TiUIWebViewProxy*)self.proxy setPageToken:_pageToken];
-    }
-    NSMutableString *html = [[[NSMutableString alloc] init] autorelease];
-    [html appendString:@"<script id='__ti_injection'>"];
-    NSString *ti = [NSString stringWithFormat:@"%@%s",@"Ti","tanium"];
-    [html appendFormat:@"window.%@={};window.Ti=%@;Ti.pageToken=%@;Ti.appId='%@';",ti,ti,_pageToken,TI_APPLICATION_ID];
-    [html appendString:kTitaniumJavascriptModified];
-    [html appendString:@"</script>"];
-    return html;
+    NSLog(@"DDDDD Called titaniumInjection method");
+  if (_pageToken == nil) {
+    _pageToken = [[NSString stringWithFormat:@"%lu", (unsigned long)[self hash]] retain];
+    [(TiUIWebViewProxy *)self.proxy setPageToken:_pageToken];
+  }
+  NSMutableString *html = [[[NSMutableString alloc] init] autorelease];
+  [html appendString:@"<script id='__ti_injection'>"];
+  NSString *ti = [NSString stringWithFormat:@"%@%s", @"Ti", "tanium"];
+  [html appendFormat:@"window.%@={};window.Ti=%@;Ti.pageToken=%@;Ti.appId='%@';", ti, ti, _pageToken, TI_APPLICATION_ID];
+  [html appendString:kTitaniumJavascriptModified];
+  [html appendString:@"</script>"];
+  return html;
 }
 
 - (NSString *)titaniumInjectionWithoutScriptElement
 {
-    if (_pageToken==nil) {
-        _pageToken = [[NSString stringWithFormat:@"%lu",(unsigned long)[self hash]] retain];
-        [(TiUIWebViewProxy*)self.proxy setPageToken:_pageToken];
-    }
-    NSMutableString *html = [[[NSMutableString alloc] init] autorelease];
-    [html appendString:@"(function(){if(typeof Ti==='undefined'){"];
-    NSString *ti = [NSString stringWithFormat:@"%@%s",@"Ti","tanium"];
-    [html appendFormat:@"window.%@={};window.Ti=%@;Ti.pageToken=%@;Ti.appId='%@';",ti,ti,_pageToken,TI_APPLICATION_ID];
-    [html appendString:kTitaniumJavascriptModified];
-    [html appendString:@"return 'Injected';} else{return 'Already injected';}})();"];
-    return html;
+    NSLog(@"DDDDD Called titaniumInjectionWithoutScriptElement method");
+  if (_pageToken == nil) {
+    _pageToken = [[NSString stringWithFormat:@"%lu", (unsigned long)[self hash]] retain];
+    [(TiUIWebViewProxy *)self.proxy setPageToken:_pageToken];
+  }
+  NSMutableString *html = [[[NSMutableString alloc] init] autorelease];
+  [html appendString:@"(function(){if(typeof Ti==='undefined'){"];
+  NSString *ti = [NSString stringWithFormat:@"%@%s", @"Ti", "tanium"];
+  [html appendFormat:@"window.%@={};window.Ti=%@;Ti.pageToken=%@;Ti.appId='%@';", ti, ti, _pageToken, TI_APPLICATION_ID];
+  [html appendString:kTitaniumJavascriptModified];
+  [html appendString:@"return 'Injected';} else{return 'Already injected';}})();"];
+  return html;
 }
-
 
 #pragma mark Internal API's
 
@@ -133,6 +134,7 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
 #if IS_SDK_IOS_11
     if ([TiUtils isIOSVersionOrGreater:@"11.0"]) {
       if (![WKWebView handlesURLScheme:[WebAppProtocolHandler specialProtocolScheme]]) {
+          NSLog(@"DDDDD setira url shema");
         [config setURLSchemeHandler:[[WebAppProtocolHandler alloc] init] forURLScheme:[WebAppProtocolHandler specialProtocolScheme]];
       }
     }
@@ -472,7 +474,7 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
     _pageToken = [[NSString stringWithFormat:@"%lu", (unsigned long)[self hash]] retain];
     [(TiUIWebViewProxy *)self.proxy setPageToken:_pageToken];
   }
-
+NSLog(@"DDDDD bla Called userScriptTitaniumInjectionForAppEvent method");
   NSString *titanium = [NSString stringWithFormat:@"%@%s", @"Ti", "tanium"];
   NSString *source = @"var callbacks = {}; var Ti = {}; var %@ = Ti; Ti.pageToken = %@; \
     Ti._listener_id = 1; Ti._listeners={}; %@\
@@ -820,14 +822,19 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
 #pragma mark Delegates
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
-{
+{NSLog(@"DD Message body: %@", [message body]);
+    NSLog(@"Called didReceiveScriptMessage method1111");
   BOOL isEvent = [[message body] isKindOfClass:[NSDictionary class]] && [[message body] objectForKey:@"name"];
+    
+    NSLog(@"Called didReceiveScriptMessage method222");
 
   if (isEvent) {
+      NSLog(@"DDDD Called didReceiveScriptMessage method - isEvent3333");
     NSString *name = [[message body] objectForKey:@"name"];
     NSDictionary *payload = [[message body] objectForKey:@"payload"];
 
     if ([message.name isEqualToString:@"_Ti_"]) {
+         NSLog(@"DDDD Called message.name isEqualToString:_Ti_");
       NSString *callback = [[message body] objectForKey:@"callback"];
 
       SBJSON *decoder = [[[SBJSON alloc] init] autorelease];
@@ -876,7 +883,8 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
   }
 
   if ([message.name isEqualToString:@"_Ti_Cookie_"]) {
-    NSArray<NSString *> *cookies = [message.body componentsSeparatedByString:@"; "];
+      NSLog(@"DDDD Called didReceiveScriptMessage method - _Ti_Cookie_");
+      NSArray<NSString *> *cookies = [message.body componentsSeparatedByString:@"; "];
     for (NSString *cookie in cookies) {
       // Get this cookie's name and value
       NSRange separatorRange = [cookie rangeOfString:@"="];
@@ -966,12 +974,13 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
-    if (eventsFromRemotePagesEnabled) {
-        NSString * injection = [self titaniumInjectionWithoutScriptElement];
-        [webView evaluateJavaScript:injection completionHandler:nil];
-    }
-    
+{NSLog(@"DDDDD111 Called didFinishNavigation method");
+  if (eventsFromRemotePagesEnabled) {
+      NSLog(@"DDDDD Called didFinishNavigation method");
+    NSString *injection = [self titaniumInjectionWithoutScriptElement];
+    [webView evaluateJavaScript:injection completionHandler:nil];
+  }
+
   [self _cleanupLoadingIndicator];
   [(TiUIWebViewProxy *)[self proxy] refreshHTMLContent];
 
@@ -1141,6 +1150,7 @@ BOOL eventsFromRemotePagesEnabled = FALSE;
   } else if (!([scheme hasPrefix:@"http"] || [scheme isEqualToString:@"ftp"] || [scheme isEqualToString:@"file"] || [scheme isEqualToString:@"app"]) && [[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
     // Support tel: protocol
     [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+      NSLog(@"DDDDD iffffff");
     decisionHandler(WKNavigationActionPolicyCancel);
   } else {
     BOOL valid = !ignoreNextRequest;
@@ -1231,6 +1241,7 @@ static NSString *UIKitLocalizedString(NSString *string)
 
 - (void)_cleanupLoadingIndicator
 {
+    NSLog(@"DDDDD _cleanupLoadingIndicator");
   if (_loadingIndicator == nil)
     return;
 
@@ -1448,13 +1459,28 @@ static NSString *UIKitLocalizedString(NSString *string)
 
 + (NSString *)specialProtocolScheme
 {
+NSLog(@"DDDD Called specialProtocolScheme method");
   return @"app";
+}
+
++ (NSRange)getRangeOfInjectionKeyword:(NSString *)target
+{
+  return [target rangeOfString:@"_TiA0_"];
 }
 
 - (void)webView:(WKWebView *)webView startURLSchemeTask:(id<WKURLSchemeTask>)urlSchemeTask
 {
   NSURLRequest *request = [urlSchemeTask request];
   NSURL *url = [request URL];
+
+    NSLog(@"DDDD Called startURLSchemeTask method");
+  // check to see if this is a bridge request through a webview
+  NSRange range = [WebAppProtocolHandler getRangeOfInjectionKeyword:[url path]];
+  if (range.location != NSNotFound && range.length != 0) {
+    NSLog(@"DDDD Called startURLSchemeTask method - found _TiA0_");
+    return;
+  }
+
   DebugLog(@"[DEBUG] Requested resource via app protocol, loading: %@", url);
 
   // see if it's a compiled resource
