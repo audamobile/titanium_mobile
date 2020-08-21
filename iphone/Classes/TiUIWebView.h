@@ -38,6 +38,8 @@
 - (void)viewDidClose;
 - (void)reload;
 - (WKWebView *)webView;
+-(void)enableEventsFromRemotePages:(BOOL)isEnabled;
+
 
 - (void)fireEvent:(id)listener withObject:(id)obj remove:(BOOL)yn thisObject:(id)thisObject_;
 

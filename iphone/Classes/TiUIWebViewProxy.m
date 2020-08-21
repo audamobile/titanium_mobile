@@ -487,6 +487,13 @@
   return nil;
 }
 
+- (void)enableEventsFromRemotePages:(id)args
+{
+    ENSURE_ARG_COUNT(args, 1);
+    BOOL isEnabled = [TiUtils boolValue:[args objectAtIndex:0] def:NO];
+    [(TiUIWebView*)[self view] enableEventsFromRemotePages:isEnabled];
+}
+
 - (NSString *)evalJSSync:(id)args
 {
   NSString *code = nil;
