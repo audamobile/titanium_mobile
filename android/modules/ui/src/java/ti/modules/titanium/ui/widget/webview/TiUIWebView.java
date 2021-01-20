@@ -82,6 +82,7 @@ public class TiUIWebView extends TiUIView
 
 	private reloadTypes reloadMethod = reloadTypes.DEFAULT;
 	private Object reloadData = null;
+    private boolean eventsFromRemotePagesEnabled = false;
 
 	private class TiWebView extends WebView
 	{
@@ -996,7 +997,7 @@ public class TiUIWebView extends TiUIView
 
 	public boolean shouldInjectBindingCode()
 	{
-		return isLocalHTML && !bindingCodeInjected;
+		return (eventsFromRemotePagesEnabled || isLocalHTML) && !bindingCodeInjected;
 	}
 
 	public void setBindingCodeInjected(boolean injected)
@@ -1019,4 +1020,8 @@ public class TiUIWebView extends TiUIView
 			Log.d(TAG, "Do not disable HW acceleration for WebView.", Log.DEBUG_MODE);
 		}
 	}
+    
+    public void enableEventsFromRemotePages(boolean isEnabled) {
+        eventsFromRemotePagesEnabled = isEnabled;
+    }
 }
